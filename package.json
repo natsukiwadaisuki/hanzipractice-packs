@@ -1,0 +1,13 @@
+{
+  "name": "hanzipractice-packs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "GitHub-backed course pack API for HanziPractice",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "fflate": "^0.8.2"
+  }
+}
