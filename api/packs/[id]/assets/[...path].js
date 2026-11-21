@@ -1,6 +1,6 @@
-import { fetchZipBytes, findZip } from "../../../lib/github.js";
-import { contentTypeFor, entriesOf } from "../../../lib/zip.js";
-import { handleOptions, param, sendError } from "../../../lib/http.js";
+import { fetchZipBytes, findZip } from "../../../../lib/github.js";
+import { contentTypeFor, entriesOf } from "../../../../lib/zip.js";
+import { handleOptions, param, sendError } from "../../../../lib/http.js";
 
 /**
  * Serves an image (or audio) that lives inside a pack zip.
