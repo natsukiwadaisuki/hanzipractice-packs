@@ -8,7 +8,7 @@
 //   GET  /api/ai/v1/models             allowlisted model ids
 //
 // Environment:
-//   AI_UPSTREAM_URL  e.g. https://evren-llmapi.ssyz.org.tr/v1
+//   AI_UPSTREAM_URL  e.g. https://openrouter.ai/api/v1
 //   AI_API_KEY       the real upstream key (never sent to the client)
 //   AI_MODELS        optional comma-separated allowlist
 
@@ -17,7 +17,7 @@ export const config = { runtime: "edge" };
 const UPSTREAM = (process.env.AI_UPSTREAM_URL || "").replace(/\/+$/, "");
 const UPSTREAM_KEY = process.env.AI_API_KEY || "";
 
-const ALLOWED_MODELS = (process.env.AI_MODELS || "deepseek-v4.1-flash,glm-5.3,qwen3.8-flash-next,gemma-4-31b")
+const ALLOWED_MODELS = (process.env.AI_MODELS || "particle-ai/particle-1:free")
   .split(",")
   .map((value) => value.trim())
   .filter(Boolean);
@@ -138,8 +138,10 @@ export default async function handler(request) {
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${UPSTREAM_KEY}`,
-        "x-api-key": UPSTREAM_KEY,
         accept: body.stream ? "text/event-stream" : "application/json",
+        // OpenRouter asks for a caller identity; harmless for other compatible providers.
+        "http-referer": process.env.AI_APP_URL || "https://hanzipractice.vercel.app",
+        "x-title": "CIEOS",
       },
       body: JSON.stringify(body),
     });
